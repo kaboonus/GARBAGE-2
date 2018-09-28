@@ -160,7 +160,7 @@ if (string.IsNullOrEmpty(Dasher))
  Sanderling.WaitForMeasurement(); }
 Paracelsus =Regex.Replace(Dasher ?? "", "[^0-9]+", "") ;
 HocusPocusPreparatus = Convert.ToInt64(Paracelsus);  
-    Host.Log("              ⊙ Kaboonus Gift From Yesterday :  " +HocusPocusPreparatus.ToString("N0")+ "");
+    Host.Log("              Kaboonus Gift From Yesterday :  " +HocusPocusPreparatus.ToString("N0")+ "");
 
 
 
@@ -413,14 +413,14 @@ void CloseModalUIElement()
         var OkyButton = Sanderling?.MemoryMeasurementParsed?.Value?.WindowOther?.FirstOrDefault()?.ButtonText?.FirstOrDefault(text => text.Text.RegexMatchSuccessIgnoreCase("ok"));
         if (OkyButton != null)
             Sanderling.MouseClickLeft(OkyButton);
-                    Host.Delay(3500)
+                    Host.Delay(3500);
         FullCargoMessage = true;
         StopAfterburner();
         ActivateArmorRepairerExecute();
         ActivateShieldBoosterExecute();
 
         ClickMenuEntryOnPatternMenuRoot(Measurement?.InfoPanelCurrentSystem?.ListSurroundingsButton, UnloadBookmark,"dock");
-        Host.Delay(3500)
+        Host.Delay(3500);
         
     }
     else
@@ -1451,7 +1451,7 @@ void ReviewSettings()
 { 
 Host.Log("                >>> Settings Review bot " + VersionScript + "");
 Host.Log("                - Start (UTC) :  " + dateAndTime.ToString(" dd/MM/yyyy HH:mm:ss")+ " (-1 min); ");
-Host.Log("                ⊙ Kaboonus Gift From Yesterday :  " +HocusPocusPreparatus.ToString("N0")+ "");
+Host.Log("                 Kaboonus Gift From Yesterday :  " +HocusPocusPreparatus.ToString("N0")+ "");
 Host.Log("                - retreat on neutrals :  " + RetreatOnNeutralOrHostileInLocal + " ; ");
         Host.Log("                - ratting anomaly :  " + RattingAnomaly + " ; ");
             Host.Log("                - anomaly name to take:  " + AnomalyToTake + " ; ");
