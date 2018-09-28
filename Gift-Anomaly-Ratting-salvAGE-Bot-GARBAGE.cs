@@ -160,7 +160,7 @@ if (string.IsNullOrEmpty(Dasher))
  Sanderling.WaitForMeasurement(); }
 Paracelsus =Regex.Replace(Dasher ?? "", "[^0-9]+", "") ;
 HocusPocusPreparatus = Convert.ToInt64(Paracelsus);  
-    Host.Log("              Kaboonus Gift From Yesterday :  " +HocusPocusPreparatus.ToString("N0")+ "");
+    Host.Log("                ⊙ Kaboonus Gift From Yesterday :  " +HocusPocusPreparatus.ToString("N0")+ "");
 
 
 
@@ -1451,7 +1451,7 @@ void ReviewSettings()
 { 
 Host.Log("                >>> Settings Review bot " + VersionScript + "");
 Host.Log("                - Start (UTC) :  " + dateAndTime.ToString(" dd/MM/yyyy HH:mm:ss")+ " (-1 min); ");
-Host.Log("                 Kaboonus Gift From Yesterday :  " +HocusPocusPreparatus.ToString("N0")+ "");
+Host.Log("               ⊙ Kaboonus Gift From Yesterday :  " +HocusPocusPreparatus.ToString("N0")+ "");
 Host.Log("                - retreat on neutrals :  " + RetreatOnNeutralOrHostileInLocal + " ; ");
         Host.Log("                - ratting anomaly :  " + RattingAnomaly + " ; ");
             Host.Log("                - anomaly name to take:  " + AnomalyToTake + " ; ");
@@ -1461,8 +1461,8 @@ Host.Log("                - retreat on neutrals :  " + RetreatOnNeutralOrHostile
                     Host.Log("                - Closer logout :  " +(TimeSpan.FromMinutes(logoutgame)).ToString(@"dd") + " days and " + ((TimeSpan.FromMinutes(logoutgame) < TimeSpan.Zero) ? "-" : "") + (TimeSpan.FromMinutes(logoutgame)).ToString(@"hh\:mm\:ss")+ " ; When times up: You Dock, logout and stopbot  ; ");
                         Host.Log("                - bookmark home: " + RetreatBookmark + " ; ");
                                 Host.Log("                - delay undock min(max) :  " + MinimDelayUndock + "(" + MaximDelayUndock + " ); ");
-                                Host.Log("                - Kaboonus Gift in Isk :  " +HocusPocus+ "");
-                                Host.Log("                - Kaboonus Gift in Loot :  " +StatusLoot+ "");
+                                Host.Log("                ⊙ Kaboonus Gift in Isk :  " +HocusPocus+ "");
+                                Host.Log("                ⊙ Kaboonus Gift in Loot :  " +StatusLoot+ "");
                                 Host.Log("                >>> End of Review.");
 }
 void CheckLocation()
