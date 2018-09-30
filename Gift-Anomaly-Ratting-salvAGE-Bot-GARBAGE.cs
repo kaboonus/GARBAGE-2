@@ -1,5 +1,7 @@
 /*GARBAGE-2 : Gift Anomaly Ratting  salvAGE Bot with Sanderling. This bot will take only anomalies, take the loot and use salvage drones for salvaging
 The child of Sanderling--ratting-bot-anomaly-or-asteroids !!
+News: create a file log named after your first name char ( fill in the name) in the executable folder of Sanderling:
+        - structure log: total amount of your wallet+ session isk/loot measured into station
 Download the latest release of Sanderling from https://github.com/Arcitectus/Sanderling/releases 
 before you start the boot you have to prepare your game interface like that:
 -create your combat tab in interface with rats+players+solid/large colidables objects+non-empty wrecks like here:
@@ -20,16 +22,17 @@ Salvage Drone I x5;  Combat Drones x7
 using BotSharp.ToScript.Extension;
 using Parse = Sanderling.Parse;
 using MemoryStruct = Sanderling.Interface.MemoryStruct;
+using System.IO;
 //	begin of configuration section ->
 string VersionScript = "GARBAGE-2v1";
-
+string CharName = "first name of your char";// Your char name. The bot will create a filename with this name, into executable sanderling folder
 var RetreatOnNeutralOrHostileInLocal =true;   // true or false :warp to RetreatBookmark when a neutral or hostile is visible in local.
 var RattingAnomaly = true;	// true or false:	when this is set to true, you take anomaly
 string WarpToAnomalyDistance = "Within 50 km"; // variants(just copy paste) : "Within 10 km" "Within 20 km" "Within 30 km" "Within 50 km" "Within 70 km" "Within 100 km"   "Within 0 m"
 var UseSalvageDrones = false; //if this is true will launch all drones one by one
 var TakeLoot = true;
 string LabelNameSalvageDrones = "Salvage Drone I"; //no reason to change
-string LabelNameAttackDrones = "Imperial Navy Praetor"; //ex:  Imperial Navy Praetor ; dunno if it work with partial name like "praetor"  or "wasp"
+string LabelNameAttackDrones = "Caldari Navy Wasp"; //ex:  Imperial Navy Praetor ; dunno if it work with partial name like "praetor"  or "wasp"
 
 string salvagingTab = "colly";
 string rattingTab = "combat";
@@ -163,6 +166,16 @@ Paracelsus =Regex.Replace(Dasher ?? "", "[^0-9]+", "") ;
 HocusPocusPreparatus = Convert.ToInt64(Paracelsus);  
     Host.Log("                ⊙ Kaboonus Gift From Yesterday :  " +HocusPocusPreparatus.ToString("N0")+ "");
 
+var SecCurentSystem = Measurement?.InfoPanelCurrentSystem?.SecurityLevelMilli.Value;
+//var CurentSystemName = Measurement?.InfoPanelCurrentSystem?.
+
+//LogMessageToFile("Hello, World");
+var currentSystemLocationLabelText =
+		Measurement?.InfoPanelCurrentSystem?.ExpandedContent?.LabelText
+		?.OrderByCenterVerticalDown()?.FirstOrDefault()?.Text;
+	var currentLocationName = RegexExtension.RemoveXmlTag(currentSystemLocationLabelText)?.Trim();
+currentLocationName = currentLocationName.Substring(0,currentLocationName.LastIndexOf(" -"));
+    Host.Log("               System :  " +currentLocationName+ "");
 
 
 
@@ -1487,6 +1500,7 @@ Host.Log("                - retreat on neutrals :  " + RetreatOnNeutralOrHostile
                                 Host.Log("                - delay undock min(max) :  " + MinimDelayUndock + "(" + MaximDelayUndock + " ); ");
                                 Host.Log("                ⊙ Kaboonus Gift in Isk :  " +HocusPocus+ "");
                                 Host.Log("                ⊙ Kaboonus Gift in Loot :  " +StatusLoot+ "");
+                                 LogMessageToFile(" " +currentLocationName+ " # Total: " +MagicalPrepare .ToString("N0")+ " ISK # Session: " +HocusPocus+ " ISK " + (string.IsNullOrEmpty(StatusLoot) ? "0" :  StatusLoot)+ " LOOT");
                                 Host.Log("                >>> End of Review.");
 }
 void CheckLocation()
@@ -1634,6 +1648,29 @@ return true;
 }
 }
 return false;
+}
+public string GetTempPath()
+{
+ string path = ".\\";
+
+    if (!path.EndsWith("\\")) path += "\\";
+    return path;
+}
+
+public void LogMessageToFile(string msg)
+{
+    System.IO.StreamWriter sw = System.IO.File.AppendText(
+        GetTempPath() +CharName+".txt");
+    try
+    {
+        string logLine = System.String.Format(
+            "{0:G}: {1}.", System.DateTime.Now, msg);
+        sw.WriteLine(logLine);
+    }
+    finally
+    {
+        sw.Close();
+    }
 }
 
 bool AnomalySuitableGeneral(MemoryStruct.IListEntry scanResult) =>
