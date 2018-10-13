@@ -330,7 +330,7 @@ Func<object> MainStep()
         Host.Delay(4111);
         while ( K>0)
             {
-                LootValue();
+               // LootValue();
                 KaboonusTalk ();
                 ReviewSettings();
                 K--;
@@ -343,7 +343,7 @@ Func<object> MainStep()
         Host.Delay(3111);
         return BotStopActivity; 
 		}
-    while (RetreatOnNeutralOrHostileInLocal && hostileOrNeutralsInLocal)
+ while ((RetreatOnNeutralOrHostileInLocal && hostileOrNeutralsInLocal) || tooManyOnLocal)
     { Host.Log("               I feel a great disturbance in the Force ... taking a nap into station until hostiles go from this system");
     Host.Delay(4111);
     return MainStep;
@@ -360,7 +360,7 @@ Func<object> MainStep()
     Sanderling.WaitForMeasurement(); 
         FullCargoMessage = false;
 
-    if ((!hostileOrNeutralsInLocal && RetreatOnNeutralOrHostileInLocal ) || (!RetreatOnNeutralOrHostileInLocal))
+    if ((!hostileOrNeutralsInLocal && RetreatOnNeutralOrHostileInLocal ) || (!RetreatOnNeutralOrHostileInLocal) || tooManyOnLocal)
     {
     Random rnd = new Random();
     int DelayTime = rnd.Next(MinimDelayUndock, MaximDelayUndock);
@@ -405,7 +405,7 @@ Func<object> MainStep()
             return InBeltMineStep;
 
         
-            if (RattingAnomaly && NoHostiles)
+            if (RattingAnomaly && (NoHostiles || !tooManyOnLocal))
             {
                     Host.Log("               I would like to spin around rocks");
                 return TakeAnomaly;
@@ -707,7 +707,7 @@ void  Undock()
            RetreatUpdate();
         ModuleMeasureAllTooltip();
         CheckLocation();
-            while (hostileOrNeutralsInLocal && RetreatOnNeutralOrHostileInLocal ) 
+           while ((hostileOrNeutralsInLocal && RetreatOnNeutralOrHostileInLocal)|| tooManyOnLocal ) 
         {                        Random rnd = new Random();
         int DelayTime = rnd.Next(MinimDelayUndock, MaximDelayUndock);
             Host.Log("               next check hostiles in :  " + DelayTime+ " s ");
@@ -718,7 +718,7 @@ void  Undock()
     }
    
 }
-
+int kk;
 Func<object> DefenseStep()
 {
     if (!ReadyForManeuver)
@@ -786,10 +786,13 @@ HpUpdate();
     }
          if (droneInLocalSpaceIdle && ListRatOverviewEntry?.FirstOrDefault()?.DistanceMax > ShipRangeMax)
         OrbitRats();
-                if ( targetFocus && targetDistance >MaxDronesRange && targetDistance < ShipRangeMax)
-            {Sanderling.MouseClickLeft(setTargetRatNotAssigned?.FirstOrDefault());
-                
-            
+                if (droneInLocalSpaceIdle&& targetFocus && targetDistance >MaxDronesRange && targetDistance < ShipRangeMax)
+            for(int kk=0; kk < setTargetRatNotAssigned.Length; ++kk)
+{
+                Sanderling.MouseClickLeft(setTargetRatNotAssigned?.FirstOrDefault());
+                if (setTargetRatNotAssigned?.LastOrDefault()?.DistanceMax>MaxDronesRange)
+            			if (Measurement?.Target?.Length < TargetCountMax && 1 < ListRatOverviewEntry?.Count())
+        			LockTarget();
             }
    else if (Measurement?.Target?.Length < TargetCountMax && 1 < ListRatOverviewEntry?.Count())
         LockTarget();
@@ -919,9 +922,9 @@ if (TakeLoot && 0 == ListRatOverviewEntry.Length)
         Sanderling.MouseClickLeft(salvageTab);
         Host.Delay(1111);
         }
-    if (listOverviewCommanderAll?.LastOrDefault()?.DistanceMax > 30000)
-    ClickMenuEntryOnMenuRoot(listOverviewCommanderAll?.LastOrDefault(), "approach");
-    else 
+    if (listOverviewSimpleWreck?.LastOrDefault()?.DistanceMax > 20000)
+    ClickMenuEntryOnMenuRoot(listOverviewSimpleWreck?.LastOrDefault(), "approach");
+    else  if (Sanderling?.MemoryMeasurementParsed?.Value?.ShipUi?.SpeedMilli>2000)
     Sanderling.KeyboardPressCombined(new[]{ VirtualKeyCode.LCONTROL, VirtualKeyCode.SPACE});
     if ((!OreHoldFilledForOffload
     &&  0 < listOverviewCommanderAll.Length)
@@ -929,7 +932,9 @@ if (TakeLoot && 0 == ListRatOverviewEntry.Length)
     { 
        // Host.Log("               looting listOverviewCommanderAll ");
     StopAfterburner ();
-    if (UseSalvageDrones)
+//    if (0 == listOverviewCommanderWreck?.Length)
+ //        DroneEnsureInBay();
+    if (UseSalvageDrones && 0 < listOverviewSimpleWreck?.Length)
         while (0 < DronesInBayCount && DronesInSpaceCount < DroneNumber && 0 < listOverviewCommanderAll?.Length)
          {LaunchDronesByLabelName(LabelNameSalvageDrones);}
 
@@ -954,14 +959,14 @@ if (TakeLoot && 0 == ListRatOverviewEntry.Length)
                 LootingCargo();
                 }
             }
-            else if (0 < listOverviewCommanderWreck?.Length)
+            else if (listOverviewCommanderWreck?.FirstOrDefault()?.DistanceMax > 20000)
             {  // Host.Log("               Approach actually 1");
             WreckLoot();  
             LootingCargo();
 
             }
             
-            if (( OreHoldFilledForOffload || 0 == listOverviewCommanderWreck?.Length ) 
+            else if (( OreHoldFilledForOffload || 0 == listOverviewSimpleWreck?.Length ) 
                 && LookingAtStars && !Tethering)
                 {
 
@@ -986,21 +991,17 @@ if (TakeLoot && 0 == ListRatOverviewEntry.Length)
                    //Host.Log("               looting  efectiv inside TakeALLLoot");
                     WreckLoot();  
                     LootingCargo();
+
                     }
+
                 }
-            else 
+            else if (listOverviewCommanderAll?.FirstOrDefault()?.DistanceMax > 20000)
                 { //Host.Log("               Actually approach 2:))");  
                 WreckLoot();  
                 LootingCargo();
+
                 }
-            }
-
-
-    if (0 == listOverviewSimpleWreck?.Length)
-    { Host.Log("               no more wrecks");
-     DroneEnsureInBay();}
-    }
-            if (( OreHoldFilledForOffload || 0 == listOverviewCommanderAll?.Length ) 
+            else if (( OreHoldFilledForOffload || 0 == listOverviewCommanderAll?.Length ) 
                 && LookingAtStars && !Tethering)
                     {
                     DroneEnsureInBay();
@@ -1014,13 +1015,16 @@ if (TakeLoot && 0 == ListRatOverviewEntry.Length)
     { Host.Log("               no more wrecks");
      DroneEnsureInBay();}
     }
+
 }
 else if (!TakeLoot && DronesInSpaceCount == 0)  
     {
         FinishedSite();
     Host.Log("                I don't love the loot! Site finished! "); 
     SiteFinished = true;	//this is just for show, unused
+
     return TakeAnomaly;
+
     }
 
 return InBeltMineStep;
@@ -1028,6 +1032,7 @@ return InBeltMineStep;
 void FinishedSite()
 {               deleteBookmark ();
     DroneEnsureInBay();  
+
     SiteFinished = true;	
     KaboonusTalk();
     LootValue();
@@ -1215,6 +1220,7 @@ void StackAll ()
             Host.Delay(1111);
         Sanderling.WaitForMeasurement(); 
             Host.Delay(1111);
+
         ClickMenuEntryOnMenuRoot(WindowInventory?.SelectedRightInventory?.ListView?.Entry?.FirstOrDefault(), @"stack all");
             Host.Delay(1111);
             Host.Log("               Stack All in '" + UnloadDestContainerName+ "' .");
