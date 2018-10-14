@@ -849,12 +849,15 @@ if (Tethering)
 {
 return MainStep;
 }
+var probeScannerWindow = Measurement?.WindowProbeScanner?.FirstOrDefault();
+     if (probeScannerWindow == null)
+    Sanderling.KeyboardPressCombined(new[] { VirtualKeyCode.LMENU, VirtualKeyCode.VK_P });
 EnsureWindowInventoryOpen();
 EnsureWindowInventoryOpenActiveShip();
 var droneListView = Measurement?.WindowDroneView?.FirstOrDefault()?.ListView;
 var droneGroupWithNameMatchingPattern = new Func<string, DroneViewEntryGroup>(namePattern =>
 droneListView?.Entry?.OfType<DroneViewEntryGroup>()?.FirstOrDefault(group => group?.LabelTextLargest()?.Text?.RegexMatchSuccessIgnoreCase(namePattern) ?? false));
-var probeScannerWindow = Measurement?.WindowProbeScanner?.FirstOrDefault();
+
 var droneGroupInLocalSpace = droneGroupWithNameMatchingPattern("local space");
 var setDroneInLocalSpace = droneListView?.Entry?.OfType<DroneViewEntryItem>()
 ?.Where(drone => droneGroupInLocalSpace?.RegionCenter()?.B < drone?.RegionCenter()?.B)
