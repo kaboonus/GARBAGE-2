@@ -251,6 +251,7 @@ if(0 < RetreatReason?.Length && !(Measurement?.IsDocked ?? false))
                 Sanderling.KeyboardPressCombined(new[] { VirtualKeyCode.LMENU, VirtualKeyCode.VK_P });
             var scanActuallyAnomaly = probeScannerWindow?.ScanResultView?.Entry?.FirstOrDefault(ActuallyAnomaly);
                 Host.Log("               I'm a chicken and I'm run from dread");
+                deleteBookmark();
             SavingLocation ();
             if (null != scanActuallyAnomaly)
             {  
