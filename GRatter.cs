@@ -27,14 +27,14 @@ using MemoryStruct = Sanderling.Interface.MemoryStruct;
 using System.IO;
 using System.Collections.Generic;
 //	begin of configuration section ->
-string VersionScript = "GARBAGE-2v3";
+string VersionScript = "GARBAGE-2v3-Maniac";
 Host.Delay(4111);
 string CharName = "Studley";// Your char name. The bot will create a filename with this name, into executable sanderling folder
 var RetreatOnNeutralOrHostileInLocal =true;   // true or false :warp to RetreatBookmark when a neutral or hostile is visible in local.
-var MaxInLocal = 15;
+var MaxInLocal = 20;
 var RattingAnomaly = true;	// true or false:	when this is set to true, you take anomaly
 string WarpToAnomalyDistance = "Within 30 km"; // variants(just copy paste) : "Within 10 km" "Within 20 km" "Within 30 km" "Within 50 km" "Within 70 km" "Within 100 km"   "Within 0 m"
-var UseSalvageDrones = true; //if this is true will launch all drones one by one
+var UseSalvageDrones = false; //if this is true will launch all drones one by one
 var TakeLoot = true;// false is you dont want at all to take the loot
 var TakeOnlyCommanderLoot =true;
 var TakeALLLoot = false;//wreck + cargos
@@ -75,12 +75,12 @@ string CelestialToAvoid = "Chemical Factory"; // ex: Chemical Factory //this one
 string commanderNameWreck = "Commander|Dark Blood|true|Shadow Serpentis|Dread Gurista|Domination Saint|Gurista Distributor|Sentient|Overseer|Spearhead|Dread Guristas|Estamel|Vepas|Thon|Kaikka|True Sansha|Chelm|Vizan|Selynne|Brokara|Dark Blood|Draclira|Ahremen|Raysere|Tairei|Cormack|Setele|Tuvan|Brynn|Domination|Tobias|Gotan|Hakim|Mizuro";
 string CargoWreck =  "cargo";
 int DroneNumber = 5;// set number of drones in space; ex: 5
-int TargetCountMax = 2; //target numbers; ex: 4
+int TargetCountMax = 3; //target numbers; ex: 4
 //set  hardeners, repairer, set true if you want to run them all time, if not, there is set StartArmorRepairerHitPoints
 var ActivateHardener = true;// true or false ;true for activated permanent
 var ActivateOmni = true; //true or false ; true for activated permanent
 var ActivateSensorBoost = true;
-var ActivateArmorRepairer = false; // true or false ; true for activated permanent
+var ActivateArmorRepairer = true; // true or false ; true for activated permanent
 var ActivateShieldBooster = false;
 
 string OmniSup = "Omnidirectional"; // ex: Omnidirectional Tracking Link I ( you can use an autotarget module in place)
@@ -152,8 +152,8 @@ dict.Add("Within 50 km",4);
 dict.Add("Within 70 km",5);
 dict.Add("Within 100 km",6);
 
-
-dict.TryGetValue(WarpToAnomalyDistance,out int x);
+int x;
+dict.TryGetValue(WarpToAnomalyDistance,out x);
 var OldSiteExist = false;
 var NoMoreRats = false;
 var SiteFinished = false;
@@ -1648,7 +1648,7 @@ else
      
     var SaveLocationWindow = Measurement?.WindowOther?.FirstOrDefault(w =>
                             (w?.Caption.RegexMatchSuccessIgnoreCase("New Location") ?? false));
-    Sanderling.KeyboardPressCombined(new[]{ VirtualKeyCode.LCONTROL, VirtualKeyCode.VK_B});
+    Sanderling.KeyboardPress(VirtualKeyCode.CAPITAL);
         Host.Delay(1111);
     Sanderling.TextEntry(messageText);
         Host.Delay(1111);

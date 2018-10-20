@@ -27,22 +27,22 @@ using MemoryStruct = Sanderling.Interface.MemoryStruct;
 using System.IO;
 using System.Collections.Generic;
 //	begin of configuration section ->
-string VersionScript = "GARBAGE-2v3";
+string VersionScript = "GARBAGE-2v3-Maniac";
 Host.Delay(4111);
-string CharName = "character name";// Your char name. The bot will create a filename with this name, into executable sanderling folder
+string CharName = "Studley";// Your char name. The bot will create a filename with this name, into executable sanderling folder
 var RetreatOnNeutralOrHostileInLocal =true;   // true or false :warp to RetreatBookmark when a neutral or hostile is visible in local.
 var MaxInLocal = 15;
 var RattingAnomaly = true;	// true or false:	when this is set to true, you take anomaly
-string WarpToAnomalyDistance = "Within 50 km"; // variants(just copy paste) : "Within 10 km" "Within 20 km" "Within 30 km" "Within 50 km" "Within 70 km" "Within 100 km"   "Within 0 m"
+string WarpToAnomalyDistance = "Within 30 km"; // variants(just copy paste) : "Within 10 km" "Within 20 km" "Within 30 km" "Within 50 km" "Within 70 km" "Within 100 km"   "Within 0 m"
 var UseSalvageDrones = true; //if this is true will launch all drones one by one
 var TakeLoot = true;// false is you dont want at all to take the loot
 var TakeOnlyCommanderLoot =true;
 var TakeALLLoot = false;//wreck + cargos
 string LabelNameSalvageDrones = "Salvage Drone I"; //no reason to change
-string LabelNameAttackDrones = "Caldari Navy Wasp"; //ex:  Imperial Navy Praetor ; dunno if it work with partial name like "praetor"  or "wasp"
+string LabelNameAttackDrones = "Wasp II"; //ex:  Imperial Navy Praetor ; dunno if it work with partial name like "praetor"  or "wasp"
 var ActivatePerma = true;//
-string salvagingTab = "colly";
-string rattingTab = "combat";
+string salvagingTab = "LOOT";
+string rattingTab = "RATS";
 string UnsupportedArmorRepairer = "Medium 'Accommodation' Vestment Reconstructer I"; // full name of module
 string messageText = "old site";
 string messageTextDread = "old site dread";
@@ -63,8 +63,8 @@ var MaxDronesRange = 60000;
 int? DistanceCelestial = 40000;
 /////settings anomaly
 string AnomalyToTakeColumnHeader = "name";  // the column header from table ex : name
-string AnomalyToTake = "Forsaken Hub"; // his name , ex:  "forsaken hub" or " combat"
-string IgnoreAnomalyName = "large|Belt|Haven|asteroid|drone|forlorn|rally|sanctum|blood hub|serpentis hub|hidden|port|den";// what anomaly to ignore : haven|Belt|asteroid|drone|forlorn|rally|sanctum|blood hub|serpentis hub|hidden|port|den
+string AnomalyToTake = "Haven"; // his name , ex:  "forsaken hub" or " combat"
+string IgnoreAnomalyName = "large|Belt|Forsaken hub|asteroid|drone|forlorn|rally|sanctum|blood hub|serpentis hub|hidden|port|den";// what anomaly to ignore : haven|Belt|asteroid|drone|forlorn|rally|sanctum|blood hub|serpentis hub|hidden|port|den
 string IgnoreColumnheader = "Name";//the head  of anomaly to ignore
 // you have to run from this rats:
 string runFromRats = "♦|Titan|Dreadnought|Autothysian";// you run from him
@@ -106,7 +106,7 @@ var StartArmorRepairerHitPoints = 95; // armor hp value in % , when it starts ar
 var StartShieldRepairerHitPoints = 35;// Shield hp value in % , when it starts shield booster IF is present
 //
 bool returnDronesToBayOnRetreat = true;
-string UnloadBookmark = "home"; // your  home bookmark
+string UnloadBookmark = "00-Station"; // your  home bookmark
 //	Name of the container to unload to as shown in inventory.
 string UnloadDestContainerName = "Item Hangar"; //supposed it is Item Hangar
 //	Bookmark of place to retreat to to prevent ship loss.
@@ -152,8 +152,8 @@ dict.Add("Within 50 km",4);
 dict.Add("Within 70 km",5);
 dict.Add("Within 100 km",6);
 
-int x;
-dict.TryGetValue(WarpToAnomalyDistance,out x);
+
+dict.TryGetValue(WarpToAnomalyDistance,out int x);
 var OldSiteExist = false;
 var NoMoreRats = false;
 var SiteFinished = false;
