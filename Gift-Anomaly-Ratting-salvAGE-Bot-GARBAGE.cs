@@ -944,7 +944,7 @@ if(null != RetreatReason && !Tethering && !(Measurement?.IsDocked ?? false))
             Sanderling.KeyboardPress(attackDrones);
             Console.Beep(1047,150);
             Console.Beep(1047,150);
-            Host.Log("               "   +EWarSelected?.RightIcon?.FirstOrDefault()?.HintText+ " ...  Some nasty rats, engaging them !!");
+            Host.Log("               '"  + EWarSelected?.Name+  "' .  This  " +EWarSelected?.RightIcon?.FirstOrDefault()?.HintText+ " ...  Some nasty rats, engaging them !!");
         }
     }
         if (Measurement?.Target?.Length < TargetCountMax && 1 < ListRatOverviewEntry?.Length)
