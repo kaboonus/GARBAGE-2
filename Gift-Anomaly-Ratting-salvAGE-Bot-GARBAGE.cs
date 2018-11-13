@@ -944,7 +944,7 @@ if(null != RetreatReason && !Tethering && !(Measurement?.IsDocked ?? false))
             Sanderling.KeyboardPress(attackDrones);
             Console.Beep(1047,150);
             Console.Beep(1047,150);
-            Host.Log("               Some nasty rats, engaging them "  +EWarSelected?.RightIcon?.FirstOrDefault()?.HintText+ "");
+            Host.Log("               "   +EWarSelected?.RightIcon?.FirstOrDefault()?.HintText+ " ...  Some nasty rats, engaging them !!");
         }
     }
         if (Measurement?.Target?.Length < TargetCountMax && 1 < ListRatOverviewEntry?.Length)
@@ -1025,7 +1025,7 @@ Sanderling.KeyboardPressCombined(new[] { VirtualKeyCode.LMENU, VirtualKeyCode.VK
 if (  ListCelestialToAvoid?.Length > 0)
 {
 Host.Log("               Gas Haven, better run!!");
-ClickMenuEntryOnPatternMenuRoot(Measurement?.InfoPanelCurrentSystem?.ListSurroundingsButton, UnloadBookmark, "warp");
+WarpInstant ();
 }
 
 if (Measurement?.ShipUi?.Indication?.ManeuverType != ShipManeuverTypeEnum.Orbit)
@@ -1060,6 +1060,10 @@ return DefenseStep;
         {
         if ((AnomalyToTake == "haven"|| AnomalyToTake == "Haven") && 0 == ListRatOverviewEntry?.Length && NoMoreRats == false && 0 < ListCelestialObjects?.Length)
             {
+            SavingLocation ();
+            ActivatePermaExecute();
+            LootValue();
+            Orbitkeyboard();
             Host.Log("               I'm in Heaven, waiting my rats :d :))");
             while( 0 == ListRatOverviewEntry?.Length)
                 {
