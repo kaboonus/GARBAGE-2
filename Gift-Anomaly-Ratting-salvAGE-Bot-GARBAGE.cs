@@ -1729,16 +1729,22 @@ void Orbitkeyboard()
 if (0 == ListCelestialObjects?.Length)
 OrbitRats();
 if (1 == ListCelestialObjects?.Length)
+{
+    Sanderling.KeyDown(orbitKeyCode);
 Sanderling.MouseClickLeft(ListCelestialObjects?.FirstOrDefault());
-else
+    Sanderling.KeyUp(orbitKeyCode);
+
+}
+else if (1 < ListCelestialObjects?.Length)
 {
     Sanderling.KeyDown(orbitKeyCode);
 Sanderling.MouseClickLeft(ListCelestialObjects?.FirstOrDefault(celestial => celestial?.DistanceMax > DistanceCelestial));
     //    Sanderling.MouseClickLeft(ListCelestialObjects?.Skip(1)?.FirstOrDefault());
     Sanderling.KeyUp(orbitKeyCode);
+}
     ActivateAfterburnerExecute();
     Host.Delay(1111);
-    Host.Log("               Rats Are in my range, better to Orbit arround Celestials");}
+    Host.Log("               Rats Are in my range, better to Orbit arround Celestials");
 }
 void OrbitRats()
 {
