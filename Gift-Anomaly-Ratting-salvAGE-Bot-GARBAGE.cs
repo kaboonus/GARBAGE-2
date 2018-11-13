@@ -542,7 +542,7 @@ Parse.IOverviewEntry[] ListRatOverviewEntry => WindowOverview?.ListView?.Entry?.
     (entry?.MainIconIsRed ?? false))
     ?.OrderBy(entry => entry?.Name?.RegexMatchSuccessIgnoreCase(@"battery|tower|sentry|web|strain|splinter|render|raider|friar|reaver")) //Frigate
     ?.OrderBy(entry => entry?.Name?.RegexMatchSuccessIgnoreCase(@"coreli|centi|alvi|pithi|corpii|gistii|cleric|engraver")) //Frigate
-    ?.OrderByDescending(entry => entry?.ListColumnCellLabel[3].Value.NumberParseDecimal())
+    //?.OrderByDescending(entry => entry?.ListColumnCellLabel[3].Value.NumberParseDecimal())
     ?.OrderBy(entry => entry?.Name?.RegexMatchSuccessIgnoreCase(@"corelior|centior|alvior|pithior|corpior|gistior")) //Destroyer
     ?.OrderBy(entry => entry?.Name?.RegexMatchSuccessIgnoreCase(@"corelum|centum|alvum|pithum|corpum|gistum|prophet")) //Cruiser
     ?.OrderBy(entry => entry?.Name?.RegexMatchSuccessIgnoreCase(@"corelatis|centatis|alvatis|pithatis|corpatis|gistatis|apostle")) //Battlecruiser
