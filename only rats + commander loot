@@ -34,16 +34,6 @@ Host.Log( CurrentSystem);
 string CharName =firstname.Remove(firstname.IndexOf(" ")).ToLower();// Your char name. The bot will create a filename with this name, into executable sanderling folder
  Host.Log( " character name : " +CharName+ "");
 
-Sanderling.MouseClickLeft(Measurement?.InfoPanelCurrentSystem?.ListSurroundingsButton);
-Sanderling.WaitForMeasurement();
-var	MenuEntries =
-    Measurement?.Menu?.FirstOrDefault()?.Entry
-    ?.ToArray();
-Sanderling.MouseMove(MenuEntries?.ElementAtOrDefault(3));
-var MenuStations =Measurement?.Menu?.LastOrDefault()?.Entry?.Select(menuEntry => menuEntry.Text)
-        ?.ToList();
-        Host.Delay(1111);
-Sanderling.WaitForMeasurement();
 Host.Delay(1111);
 
 var RetreatOnNeutralOrHostileInLocal =true;   // true or false :warp to RetreatBookmark when a neutral or hostile is visible in local.
