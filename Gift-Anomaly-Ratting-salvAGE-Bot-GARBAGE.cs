@@ -60,18 +60,16 @@ var SalvageDronesFolder = "salvagers";
 string LabelNameSalvageDrones = "Salvage Drone I"; //no reason to change
 string AutoNpcFaction;
 Dictionary<string,string> region=new Dictionary<string,string>();
-region.Add("xxx", "blood");
-region.Add("xxx", "serpentis");
-region.Add("xxx", "guristas");
+//region.Add("xxx", "blood");
+region["xx"] = "blood";
 
 
 region.TryGetValue(CurrentRegion,out AutoNpcFaction);
 var IntelRegion =CurrentRegion;
 string IntelChannelName;
 Dictionary<string,string> IntelFor=new Dictionary<string,string>();
-IntelFor.Add("xxx", "your intel channel");
-IntelFor.Add("xxx", "");
-IntelFor.Add("xxx", "");
+//IntelFor.Add("xxx", "your intel channel");
+IntelFor["xx"] = "your intel channel";
 
 
 IntelFor.TryGetValue(IntelRegion,out IntelChannelName);
@@ -79,13 +77,8 @@ Host.Log("                >>> intel channel  " +IntelChannelName+ " ");
 string NpcFaction = AutoNpcFaction; // or if you want, put directly "serpentis" "blood"  "angel"
 string LabelNameAttackDrones;//ex:  Imperial Navy Praetor ;  "Caldari Navy Wasp"  dunno if it work with partial name like "praetor"  or "wasp"
 Dictionary<string,string> faction=new Dictionary<string,string>();
-faction.Add("serpentis", "Caldari Navy Wasp");
-faction.Add("blood", "Imperial Navy Praetor");
-faction.Add("angel", "Caldari Navy Wasp");
-faction.Add("guristas", "Caldari Navy Wasp");
-faction.Add("sansha", "Imperial Navy Praetor");
-faction.Add("mordus", "Imperial Navy Praetor");
-faction.Add("drones", "Imperial Navy Praetor");
+faction["blood"] = "Imperial Navy Praetor"; // one drone name / faction
+
 faction.TryGetValue(NpcFaction,out LabelNameAttackDrones);
 var ActivatePerma = true;//
 string salvagingTab = "colly";
